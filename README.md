@@ -15,6 +15,10 @@ vim<br>
 :BundleClean - remove old plugins<br>
 :NERDTree - files tree view<br>
 
+
+## to push changes
+git config --global user.name "pavel"<br>
+git config --global user.email "pavel@example.com"<br>
 git add .<br>
 git commit -m "vimrc file"<br>
 git push origin master<br>
