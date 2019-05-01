@@ -1,0 +1,4 @@
+set lines=45 columns=170
+" set background=light
+" colorscheme slate
+" highlight Normal guifg=black guibg=white
