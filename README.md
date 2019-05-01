@@ -1,3 +1,4 @@
+#### to setup new linux system:
 git clone https://github.com/greenjah/linux-setup.git<br>
 ln -s /home/user/settings-linux/_vimrc /home/user/.vimrc<br>
 ln -s /home/user/settings-linux/_gvimrc /home/user/.gvimrc<br>
@@ -15,8 +16,8 @@ vim<br>
 :BundleClean - remove old plugins<br>
 :NERDTree - files tree view<br>
 
-
-## to push changes
+<br><br>
+#### to push changes:
 git config --global user.name "pavel"<br>
 git config --global user.email "pavel@example.com"<br>
 git add .<br>
