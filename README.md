@@ -1,10 +1,10 @@
 #### to setup new linux system:
-git clone https://github.com/greenjah/linux-setup.git<br>
-ln -s /home/user/settings-linux/_vimrc /home/user/.vimrc<br>
-ln -s /home/user/settings-linux/_gvimrc /home/user/.gvimrc<br>
-ln -s /home/user/settings-linux/_vim-d /home/user/.vim<br>
-ln -s /home/user/settings-linux/_git-completion.bash /home/user/.git-completion.bash<br>
-ln -s /home/user/settings-linux/_bashrc /home/user/.bashrc<br>
+git clone https://github.com/paveljah/linux-setup.git<br>
+ln -s /home/user/applications/linux-setup/_vimrc /home/user/.vimrc<br>
+ln -s /home/user/applications/linux-setup/_gvimrc /home/user/.gvimrc<br>
+ln -s /home/user/applications/linux-setup/_vim-d /home/user/.vim<br>
+ln -s /home/user/applications/linux-setup/_git-completion.bash /home/user/.git-completion.bash<br>
+ln -s /home/user/applications/linux-setup/_bashrc /home/user/.bashrc<br>
 
 cd /home/user/.vim<br>
 mkdir bundle<br>
