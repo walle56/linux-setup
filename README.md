@@ -17,6 +17,10 @@ vim<br>
 :NERDTree - files tree view<br>
 
 <br><br>
+#### copy doublecmd config:
+excract doublecmd.zip to /home/user/.config/doublecmd/
+
+<br><br>
 #### to push changes:
 git config --global user.name "pavel"<br>
 git config --global user.email "pavel@example.com"<br>
