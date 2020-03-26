@@ -1,6 +1,4 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 case $- in
@@ -8,8 +6,7 @@ case $- in
       *) return;;
 esac
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# check the window size after each command and update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
@@ -51,9 +48,6 @@ xterm*|rxvt*)
     ;;
 esac
 
-# set editing-mode vi
-export EDITOR=vim
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -89,19 +83,17 @@ alias g-p='git pull'
 alias g-l1='git log --decorate --graph --all --oneline'
 alias g-l2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 
-# functions
-geany() { 
-	nohup /usr/bin/geany $1 & 
-}
+# functions example
+#geany() { 
+#    nohup /usr/bin/geany $1 & 
+#}
 
 # Alias definitions. System specific aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -114,13 +106,11 @@ fi
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=100000
 export HISTFILESIZE=100000
-# append to the history file, don't overwrite it
-shopt -s histappend
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+shopt -s histappend
 bind 'set completion-ignore-case on'
 
-# colored prompt
-# If id command returns zero, you’ve root access.
+# colored prompt, if id command returns zero - you’ve root access
 if [ $(id -u) -eq 0 ];
 then # you are root, set red colour prompt
   PS1="\[\033[01;31m\]\A \u@\h:\w\[\033[00m\]$ "
@@ -132,14 +122,17 @@ fi
 export JAVA_HOME=/home/user/applications/jdk1.8.0_171
 export M2_HOME=/home/user/applications/apache-maven-3.3.9
 export CATALINA_HOME=/home/user/applications/apache-tomcat-8.5.37
-
-export PATH=$PATH:/home/user/bin:$JAVA_HOME/bin:$M2_HOME/bin:/home/user/applications/gradle-4.5/bin
+export EDITOR=vim
 export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib/"
+#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib/"
+#export DOCKER_HOST=tcp://0.0.0.0:2375
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export PATH=$PATH:/home/user/bin:$JAVA_HOME/bin:$M2_HOME/bin
 
 # other specific settings
 cd ~
 #xhost +
 #setxkbmap -model evdev -layout us
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
