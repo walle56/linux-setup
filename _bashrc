@@ -1,52 +1,18 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+# if not running interactively, don't do anything
+[[ $- == *i* ]] || return
 
 # check the window size after each command and update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+# don't check mail when opening terminal.
+unset MAILCHECK
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -64,16 +30,19 @@ if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
 
-# some more aliases
+# base aliases
 alias ls='ls -Fh --color=auto --group-directories-first'
 alias ll='ls -lh'
-alias la='ls -alh'
+alias la='ls -Alh'
 alias gedit='gedit $1 < /dev/null'
 alias grep='grep --color'
 alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
 alias mkdir='mkdir -v'
+alias du='du -kh'
+alias df='df -kTh'
+alias home='cd ~'
 
 # git aliases
 alias g-s='git status'
@@ -88,18 +57,14 @@ alias g-l2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold 
 #    nohup /usr/bin/geany $1 & 
 #}
 
-# Alias definitions. System specific aliases
+# system specific aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
 # enable programmable completion features
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
-  fi
 fi
 
 # use nice bash history - no duplicates, big history
@@ -111,24 +76,29 @@ shopt -s histappend
 bind 'set completion-ignore-case on'
 
 # colored prompt, if id command returns zero - you’ve root access
-if [ $(id -u) -eq 0 ];
-then # you are root, set red colour prompt
-  PS1="\[\033[01;31m\]\A \u@\h:\w\[\033[00m\]$ "
-else # normal
-  PS1="\[\033[01;33m\]\u@\h:\w\[\033[00m\]\n\A $ "
+Red='\e[0;31m'
+Yellow='\e[0;33m'
+if [[ ${USER} == "root" ]]; then
+#if [ $(id -u) -eq 0 ];
+  PS1="\[\033[${Red}\]\A \u@\h:\w\[\033[00m\] $ "
+else 
+  PS1="\[\033[${Yellow}\]\u@\h:\w\[\033[00m\]\n\A $ "
 fi
 
 # environment variables
-export JAVA_HOME=/home/user/applications/jdk1.8.0_171
-export M2_HOME=/home/user/applications/apache-maven-3.3.9
-export CATALINA_HOME=/home/user/applications/apache-tomcat-8.5.37
 export EDITOR=vim
+export GREP_OPTIONS=' — color=auto'
 export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
-#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib/"
-#export DOCKER_HOST=tcp://0.0.0.0:2375
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+
+# variables for development
+#export DOCKER_HOST=tcp://0.0.0.0:2375
+#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib/"
+export JAVA_HOME=/home/user/applications/jdk1.8.0_171
+export M2_HOME=/home/user/applications/apache-maven-3.3.9
+export CATALINA_HOME=/home/user/applications/apache-tomcat-8.5.37
 export PATH=$PATH:/home/user/bin:$JAVA_HOME/bin:$M2_HOME/bin
 
 # other specific settings
