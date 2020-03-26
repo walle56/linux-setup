@@ -43,6 +43,9 @@ alias mkdir='mkdir -v'
 alias du='du -kh'
 alias df='df -kTh'
 alias home='cd ~'
+alias up='cd ..'
+alias w-inst="sudo apt-get install"
+alias w-remv="sudo apt-get purge"
 
 # git aliases
 alias g-s='git status'
@@ -52,10 +55,37 @@ alias g-p='git pull'
 alias g-l1='git log --decorate --graph --all --oneline'
 alias g-l2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 
-# functions example
+# functions
 #geany() { 
 #    nohup /usr/bin/geany $1 & 
 #}
+w-extract() {
+   if [ -f $1 ] ; then
+       case $1 in
+           *.tar.bz2)   tar xvjf $1    ;;
+           *.tar.gz)    tar xvzf $1    ;;
+           *.bz2)       bunzip2 $1     ;;
+           *.rar)       unrar x $1     ;;
+           *.gz)        gunzip $1      ;;
+           *.tar)       tar xvf $1     ;;
+           *.tbz2)      tar xvjf $1    ;;
+           *.tgz)       tar xvzf $1    ;;
+           *.zip)       unzip $1       ;;
+           *.Z)         uncompress $1  ;;
+           *.7z)        7z x $1        ;;
+           *)           echo "don't know how to extract '$1'..." ;;
+       esac
+   else
+       echo "'$1' is not a valid file!"
+   fi
+}
+w-dirsize () {
+   du -shx * .[a-zA-Z0-9_]* 2> /dev/null | \
+   egrep '^ *[0-9.]*[MG]' | sort -n > /tmp/list
+   egrep '^ *[0-9.]*M' /tmp/list
+   egrep '^ *[0-9.]*G' /tmp/list
+   rm -rf /tmp/list
+}
 
 # system specific aliases
 if [ -f ~/.bash_aliases ]; then
@@ -73,21 +103,18 @@ export HISTSIZE=100000
 export HISTFILESIZE=100000
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 shopt -s histappend
+shopt -s cmdhist
 bind 'set completion-ignore-case on'
 
-# colored prompt, if id command returns zero - you’ve root access
-Red='\e[0;31m'
-Yellow='\e[0;33m'
+# colored prompt, if id command returns zero - you?ve root access
 if [[ ${USER} == "root" ]]; then
-#if [ $(id -u) -eq 0 ];
-  PS1="\[\033[${Red}\]\A \u@\h:\w\[\033[00m\] $ "
+  PS1="\[\033[01;31m\]\A \u@\h:\w\[\033[00m\] $ "
 else 
-  PS1="\[\033[${Yellow}\]\u@\h:\w\[\033[00m\]\n\A $ "
+  PS1="\[\033[01;33m\]\u@\h:\w\[\033[00m\]\n\A $ "
 fi
 
 # environment variables
 export EDITOR=vim
-export GREP_OPTIONS=' — color=auto'
 export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
