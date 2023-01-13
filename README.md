@@ -1,5 +1,5 @@
 #### Setup new linux system:
-git clone https://github.com/paveljah/linux-setup.git<br>
+git clone https://github.com/walle56/linux-setup.git<br>
 ln -s /home/user/applications/linux-setup/_vimrc /home/user/.vimrc<br>
 ln -s /home/user/applications/linux-setup/_gvimrc /home/user/.gvimrc<br>
 ln -s /home/user/applications/linux-setup/_vim-d /home/user/.vim<br>
@@ -29,10 +29,3 @@ UUID=916A84D013980D12	/media/DATA	ntfs-3g	 defaults,nls=utf8,umask=000,dmask=033
 "ll /dev/disk/by-uuid/" (or "blkid /dev/sda5")<br>
 -- uid and gid from /etc/passwd
 <br>
-
-#### Push changes to this repo:
-git config --global user.name "pavel"<br>
-git config --global user.email "pavel@example.com"<br>
-git add .<br>
-git commit -m "vimrc file"<br>
-git push origin master<br>
