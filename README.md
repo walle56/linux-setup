@@ -1,20 +1,27 @@
 #### Setup new linux system:
 git clone https://github.com/walle56/linux-setup.git<br>
+-- make links:<br>
 ln -s /home/user/applications/linux-setup/_vimrc /home/user/.vimrc<br>
 ln -s /home/user/applications/linux-setup/_gvimrc /home/user/.gvimrc<br>
 ln -s /home/user/applications/linux-setup/_vim-d /home/user/.vim<br>
 ln -s /home/user/applications/linux-setup/_git-completion.bash /home/user/.git-completion.bash<br>
 ln -s /home/user/applications/linux-setup/_bashrc /home/user/.bashrc<br>
+-- or copy files:<br>
+cd ~<br>
+cp Development/linux-setup/_vimrc ~/.vimrc<br>
+cp Development/linux-setup/_gvimrc ~/.gvimrc<br>
+cp -r Development/linux-setup/_vim-d ~/.vim<br>
+<br>
 
 cd /home/user/.vim<br>
-mkdir bundle<br>
+mkdir bundle<be>
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim<br>
 vim ~/.vim/initVundle.vim (copy content from my git)<br>
 vim<br>
 :BundleInstall<br>
 
 :BundleClean - remove old plugins<br>
-:NERDTree - files tree view
+:NERDTree - files tree view<br>
 <br>
 
 #### Copy doublecmd config:
